@@ -1,7 +1,7 @@
 # code-quiz
 
 LIVE SITE:
-https://carolynstolze.github.io/password-generator.github.io/
+https://carolynstolze.github.io/code-quiz.github.io/
 
 GITHUB REPOSITORY:
 https://github.com/carolynstolze/code-quiz
