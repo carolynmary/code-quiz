@@ -12,3 +12,8 @@ https://github.com/carolynstolze/code-quiz
 
 ## commit 2
 - updated logic.js file with working startQuiz function and getQuestion function.
+
+## commit 3
+- updated logic.js file 
+    - updated functions: startQuiz, getQuestion
+    - new working functions: questionClick, quizEnd, clockTick
