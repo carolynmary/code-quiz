@@ -1,14 +1,15 @@
 // variables to keep track of quiz state
-var currentQuestionIndex = 0;
 var time = questions.length * 15;
 var timerId;
+var currentQuestionIndex = 0;
+var currentQues = questions[currentQuestionIndex];
 
 // variables to reference DOM elements
-var questionsEl = document.getElementById("questions");
+var startBtn = document.getElementById("start");
 var timerEl = document.getElementById("time");
+var questionsEl = document.getElementById("questions");
 var choicesEl = document.getElementById("choices");
 var submitBtn = document.getElementById("submit");
-var startBtn = document.getElementById("start");
 var initialsEl = document.getElementById("initials");
 var feedbackEl = document.getElementById("feedback");
 
@@ -18,33 +19,56 @@ var sfxWrong = new Audio("assets/sfx/incorrect.wav");
 
 function startQuiz() {
   // hide start screen
-
+  document.getElementById("start-screen").style.display = "none";
   // un-hide questions section
-
-  // start timer
-
-  // show starting time
-
+  questionsEl.style.display = "block";
+  // questionsEl.removeAttribute("class");
+  // start timer and show starting time
+  var timeLeft = time;
+  var timeInterval = setInterval(function () {
+    timerEl.textContent = timeLeft;
+    timeLeft--;
+    if (timeLeft === 0) {
+      timerEl.textContent = "";
+      clearInterval(timeInterval);
+      quizEnd();
+    }
+  }, 1000);
   getQuestion();
 }
 
 function getQuestion() {
   // get current question object from array
+  // var currentQues = questions[currentQuestionIndex];
   // update title with current question
-  // clear out any old question choices
+  document.getElementById("question-title").textContent = currentQues.title;
+  // // clear out any old question choices
+  choicesEl.innerHTML = "";
   // loop over choices
-  // create new button for each choice
-  // attach click event listener to each choice
-  // display on the page
+  for (var i = 0; i < currentQues.choices.length; i++) {
+    // create new button for each choice
+    var btn = document.createElement("button"); 
+    btn.innerHTML = currentQues.choices[i];                   
+    // attach click event listener to each choice
+    btn.onclick = questionClick;
+    // display on the page
+    choicesEl.appendChild(btn);
+  }
 }
 
 function questionClick() {
-  // check if user guessed wrong
-  // penalize time
-  // display new time on page
-  // play "wrong" sound effect
-  // else
-  // play "right" sound effect
+  // // check if user guessed wrong
+  // if (this.value !== currentQues.answer) {
+  //   // penalize time
+  //   time = time - 10;
+  //   // display new time on page
+  //   timerEl.textContent = time;
+  //   // play "wrong" sound effect
+  //   sfxWrong.play()
+  //   feedbackEl.textContent = "Wrong!";
+  // }
+  // // else
+    // play "right" sound effect
   // flash right/wrong feedback on page for half a second
   // move to next question
   // check if we've run out of questions
