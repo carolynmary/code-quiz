@@ -105,23 +105,37 @@ function clockTick() {
   // check if user ran out of time
   if (time <= 0) {
     timerEl.textContent = "";
-    clearInterval(timeInterval);
+    clearInterval(timerId);
     quizEnd();
   }
 }
 
 function saveHighscore() {
   // get value of input box
+  var initials = initialsEl.value;
   // make sure value wasn't empty
-  // get saved scores from localstorage, or if not any, set to empty array
-  // format new score object for current user
-  // save to localstorage
-  // redirect to next page
+  if (initials !== "") {
+    // get saved scores from localstorage, or if not any, set to empty array
+    var highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
+    // format new score object for current user
+    var newScore = {
+      score: time + 1,
+      initials: initials,
+    };
+    // save to localstorage
+    highscores.push(newScore);
+    window.localStorage.setItem("highscores", JSON.stringify(highscores));
+    // redirect to next page
+    window.location.href = "highscores.html"
+  }
 }
 
 function checkForEnter(event) {
   // check if event key is enter
   // saveHighscore
+  if (event.key === "Enter") {
+    saveHighscore();
+  }
 }
 
 // user clicks button to submit initials
